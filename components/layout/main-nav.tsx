@@ -1,41 +1,41 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { useSelectedLayoutSegment } from "next/navigation"
+import * as React from "react";
+import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 
-import { MainNavItem } from "types"
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
-import { Icons } from "@/components/shared/icons"
-import { MobileNav } from "@/components/layout/mobile-nav"
+import { MainNavItem } from "types";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
+import { MobileNav } from "@/components/layout/mobile-nav";
+import { Icons } from "@/components/shared/icons";
 
 interface MainNavProps {
-  items?: MainNavItem[]
-  children?: React.ReactNode
+  items?: MainNavItem[];
+  children?: React.ReactNode;
 }
 
 export function MainNav({ items, children }: MainNavProps) {
-  const segment = useSelectedLayoutSegment()
-  const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
+  const segment = useSelectedLayoutSegment();
+  const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
 
   const toggleMobileMenu = () => {
-    setShowMobileMenu(!showMobileMenu)
-  }
+    setShowMobileMenu(!showMobileMenu);
+  };
 
   React.useEffect(() => {
     const closeMobileMenuOnClickOutside = (event: MouseEvent) => {
       if (showMobileMenu) {
-        setShowMobileMenu(false)
+        setShowMobileMenu(false);
       }
-    }
+    };
 
-    document.addEventListener("click", closeMobileMenuOnClickOutside)
+    document.addEventListener("click", closeMobileMenuOnClickOutside);
 
     return () => {
-      document.removeEventListener("click", closeMobileMenuOnClickOutside)
-    }
-  }, [showMobileMenu])
+      document.removeEventListener("click", closeMobileMenuOnClickOutside);
+    };
+  }, [showMobileMenu]);
 
   return (
     <div className="flex gap-6 md:gap-10">
@@ -56,7 +56,7 @@ export function MainNav({ items, children }: MainNavProps) {
                 item.href.startsWith(`/${segment}`)
                   ? "text-foreground"
                   : "text-foreground/60",
-                item.disabled && "cursor-not-allowed opacity-80"
+                item.disabled && "cursor-not-allowed opacity-80",
               )}
             >
               {item.title}
@@ -75,5 +75,5 @@ export function MainNav({ items, children }: MainNavProps) {
         <MobileNav items={items}>{children}</MobileNav>
       )}
     </div>
-  )
+  );
 }
